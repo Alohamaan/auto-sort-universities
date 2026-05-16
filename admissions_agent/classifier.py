@@ -12,7 +12,7 @@ class ThreadClassifier:
         message_type = MessageType.ADMISSIONS
         if "newsletter" in text or "promo" in text:
             message_type = MessageType.MARKETING
-        elif "auto-reply" in text or "out of office" in text:
+        elif any(token in text for token in ("auto-reply", "out of office", "automatic reply")):
             message_type = MessageType.AUTO_REPLY
 
         return ClassifierResult(

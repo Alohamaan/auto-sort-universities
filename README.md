@@ -32,6 +32,9 @@ cp .env.example .env
 ```
 
 ## Run app
+
+Entrypoint module used in Docker/production is `admissions_agent.app:app`.
+
 ```bash
 uvicorn admissions_agent.app:app --reload
 ```

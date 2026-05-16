@@ -27,7 +27,7 @@ class DecisionEngine:
 
         if result.message_type == MessageType.AUTO_REPLY:
             return DecisionResult(
-                kind=DecisionKind.IGNORE, reason="Auto-reply ignored for eligibility"
+                kind=DecisionKind.IGNORE, reason="Auto-reply ignored for eligibility decisions"
             )
 
         if not result.institution or not result.institution.is_known:

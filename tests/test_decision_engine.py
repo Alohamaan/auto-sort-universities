@@ -49,3 +49,13 @@ def test_status_change_requires_manual_approval() -> None:
     decision = DecisionEngine().decide(result)
     assert decision.kind == DecisionKind.PENDING_ACTION
     assert decision.pending_action is not None
+
+
+def test_auto_reply_ignored_for_eligibility_decisions() -> None:
+    result = ClassifierResult(
+        thread_id="t-auto",
+        message_type=MessageType.AUTO_REPLY,
+        institution=InstitutionCandidate(canonical_name="Known", source_value="K", confidence=0.9),
+    )
+    decision = DecisionEngine().decide(result)
+    assert decision.kind == DecisionKind.IGNORE
