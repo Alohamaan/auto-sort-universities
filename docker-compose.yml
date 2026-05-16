@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  admissions-agent:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./:/app
+    ports:
+      - "8000:8000"
+    command: uvicorn admissions_agent.app:app --host 0.0.0.0 --port 8000 --reload
