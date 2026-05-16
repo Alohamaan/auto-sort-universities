@@ -1,6 +1,6 @@
 # Admissions Email Reconciliation Agent (Skeleton)
 
-Initial Python 3.12 skeleton for an agent that processes admissions-related email threads and proposes controlled tracker updates.
+Python 3.12 agent that processes admissions-related email threads and proposes controlled tracker updates.
 
 ## Guardrails
 - The LLM/classifier layer **never writes directly** to Google Sheets.
@@ -20,7 +20,7 @@ Initial Python 3.12 skeleton for an agent that processes admissions-related emai
 - `admissions_agent/sheets.py` - Google Sheets interface stub (dry-run)
 - `admissions_agent/resolver.py` - institution resolver stub
 - `admissions_agent/classifier.py` - classifier stub
-- `admissions_agent/jobs.py` - polling orchestration
+- `admissions_agent/jobs/` - polling orchestration and reconcile CLI
 - `admissions_agent/db.py` - SQLite table bootstrap
 
 ## Local setup
@@ -36,6 +36,13 @@ cp .env.example .env
 uvicorn admissions_agent.main:app --reload
 ```
 
+## Reconcile mailbox (one-shot)
+```bash
+python -m admissions_agent.jobs.reconcile --dry-run
+```
+
+Dry-run prints proposed actions and does not write to Gmail or Google Sheets.
+
 ## Run tests
 ```bash
 pytest
@@ -47,5 +54,5 @@ docker compose up --build
 ```
 
 ## Notes
-- No production Gmail/Sheets/OpenAI calls are implemented.
+- Gmail and Google Sheets integrations are behind interfaces and can be replaced with fakes in tests.
 - Tests use local fixtures and do not send emails or write to real spreadsheets.
